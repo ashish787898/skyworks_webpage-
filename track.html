@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Track Drone</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Poppins', sans-serif;
+            background-color: #0a0b10;
+            color: #fff;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 100vh;
+            overflow: hidden;
+        }
+
+        /* Background animated particles */
+        .particle {
+            position: absolute;
+            width: 30px;
+            height: 30px;
+            background-color: rgba(255, 126, 95, 0.3);
+            border-radius: 50%;
+            filter: blur(5px);
+            animation: moveParticle 10s infinite ease-in-out;
+            z-index: 0;
+        }
+
+        @keyframes moveParticle {
+            0% { transform: translateX(0) translateY(0); }
+            100% { transform: translateX(-300px) translateY(400px); }
+        }
+
+        .particle:nth-child(1) { left: 10%; top: 20%; animation-duration: 8s; }
+        .particle:nth-child(2) { left: 70%; top: 70%; animation-duration: 10s; }
+        .particle:nth-child(3) { left: 40%; top: 50%; animation-duration: 12s; }
+
+        
+
+        .content {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            background: rgba(20, 22, 26, 0.9);
+            border-radius: 20px;
+            padding: 40px;
+            box-shadow: 0px 15px 35px rgba(0, 0, 0, 0.5);
+            position: relative;
+            z-index: 1;
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .content h2 {
+            font-size: 2rem;
+            margin-bottom: 20px;
+            color: #feb47b;
+        }
+
+          /* Coordinates displayed side by side */
+          .coords {
+            display: flex;
+            justify-content: space-between;
+            font-size: 1.4rem;
+            margin-bottom: 20px;
+            letter-spacing: 1px;
+            width: 100%;
+        }
+
+        .coords p {
+            margin: 0 10px;
+        }
+
+        /* Map container */
+        #map {
+            height: 400px;
+            width: 100%;
+            border-radius: 20px;
+            margin-top: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Map or position link */
+        .map-link {
+            margin-top: 30px;
+            text-decoration: none;
+            padding: 12px 25px;
+            border-radius: 30px;
+            background: linear-gradient(90deg, #ff7e5f, #feb47b);
+            color: white;
+            font-size: 1.2rem;
+            transition: background 0.4s ease, transform 0.3s ease;
+        }
+
+        .map-link:hover {
+            background: linear-gradient(90deg, #feb47b, #ff7e5f);
+            transform: translateY(-5px);
+        }
+
+        /* Make the page responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .content {
+                padding: 20px;
+            }
+
+            .coords {
+                font-size: 1.2rem;
+            }
+
+            #map {
+                height: 300px;
+            }
+        }
+
+    </style>
+
+    <!-- Include Leaflet CSS for map -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" />
+</head>
+<body>
+
+    <!-- Particle effects -->
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
+    
+
+    <div class="content">
+        <h2>Current Position:</h2>
+        <div class="coords">
+            <p>Latitude: <strong id="latDisplay">--</strong></p>
+            <p>Longitude: <strong id="lonDisplay">--</strong></p>
+        </div>
+
+        <!-- Map will be rendered here -->
+        <div id="map"></div>
+
+        <a class="map-link" href="/">Go back to Home</a>
+    </div>
+
+    <!-- Include Leaflet JS -->
+    <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+    <script>
+        // Function to get URL parameters
+        function getUrlParam(param) {
+            const urlParams = new URLSearchParams(window.location.search);
+            return urlParams.get(param);
+        }
+
+        // Get coordinates from URL
+        const lat = parseFloat(getUrlParam('lat'));
+        const lon = parseFloat(getUrlParam('lon'));
+
+        // Update the displayed coordinates
+        document.getElementById('latDisplay').textContent = lat || '--';
+        document.getElementById('lonDisplay').textContent = lon || '--';
+
+        // Initialize map and drone marker if coordinates are valid
+        if (!isNaN(lat) && !isNaN(lon)) {
+            var map = L.map('map').setView([lat, lon], 13);  // Set initial view with coordinates
+            L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                maxZoom: 19
+            }).addTo(map);
+
+            // Add a marker for the drone at the coordinates
+            L.marker([lat, lon]).addTo(map);
+        } else {
+            alert('Invalid coordinates passed. Please enter valid latitude and longitude.');
+        }
+    </script>
+</body>
+</html>
