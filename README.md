@@ -54,7 +54,8 @@ skyworks/
 
 ## 📸 Screenshots
 1.Homepage
-![image](https://github.com/user-attachments/assets/44c30e0c-9df4-40c3-bb0e-5f26985c21cc)
+![image](https://github.com/user-attachments/assets/ec89bb0b-cbb2-47e3-83e8-31cabb54c968)
+
 
 2.Cooridinates page
 ![image](https://github.com/user-attachments/assets/b3e9aa6c-473e-4a06-b023-bbe5456c9e3e)
