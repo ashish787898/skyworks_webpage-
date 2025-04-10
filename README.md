@@ -50,19 +50,6 @@ skyworks/
 ├── assets/              # Images, icons, etc.
 └── README.md            # This file
 
----
-
-## 📸 Screenshots
-1.Homepage
-![image](https://github.com/user-attachments/assets/ec89bb0b-cbb2-47e3-83e8-31cabb54c968)
-
-
-2.Cooridinates page
-![image](https://github.com/user-attachments/assets/b3e9aa6c-473e-4a06-b023-bbe5456c9e3e)
-
-3. Track pagr
-![image](https://github.com/user-attachments/assets/60cdf53c-5837-4d47-a2bd-90d23572daf3)
-
 ## 🤖 Future Improvements
 
 - Integration with more accurate GPS modules
